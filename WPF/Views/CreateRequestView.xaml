@@ -7,6 +7,70 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Create request" FontSize="24"/>
+
+        <Grid Grid.Row="1" Margin="0 15 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Name" Margin="0 0 5 0"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="Method" Margin="5 0 0 0"/>
+
+            <TextBox Grid.Row="1" Grid.Column="0" Text="" Margin="0 0 5 0" MinWidth="100px" MaxWidth="295px"/>
+            <ComboBox Grid.Row="1" Grid.Column="1" Margin="5 0 0 0" MinWidth="100px" MaxWidth="295px"/>
+        </Grid>
+
+        <Grid Grid.Row="2" Margin="0 15 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Url"/>
+
+            <TextBox Grid.Row="1" Text=""/>
+        </Grid>
+
+        <Grid Grid.Row="3" Margin="0 15 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Content type"/>
+
+            <TextBox Grid.Row="1" Text=""/>
+        </Grid>
+
+        <Grid Grid.Row="4" Margin="0 15 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Body"/>
+
+            <TextBox Grid.Row="1" Text="" AcceptsReturn="True"/>
+        </Grid>
+
+        <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="0 25 0 0">
+            <Button Content="Submit" Margin="0 0 5 0" />
+            <Button Content="Cancel" Margin="5 0 0 0" />
+        </StackPanel>
     </Grid>
 </UserControl>

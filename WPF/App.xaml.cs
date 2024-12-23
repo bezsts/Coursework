@@ -24,15 +24,6 @@ namespace WPF
 
             IEnumerable<BaseScenario> baseScenarios = scenarioManager.GetScenarios();
 
-
-            try
-            {
-                scenarioManager.RunScenarious(baseScenarios);
-            }
-            catch (ScenarioMissingRequestParametersException ex)
-            {
-            }
-
             base.OnStartup(e);
         }
     }
