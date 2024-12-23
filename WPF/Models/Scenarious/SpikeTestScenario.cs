@@ -1,6 +1,7 @@
 ﻿using NBomber.Contracts;
 using NBomber.CSharp;
 using NBomber.Http.CSharp;
+using WPF.Models.Requests;
 
 namespace WPF.Models.Scenarious
 {
@@ -9,6 +10,8 @@ namespace WPF.Models.Scenarious
         public SpikeTestScenario(string name, int max_rate, TimeSpan interval, TimeSpan duration)
             : base(name, max_rate, interval, duration) { }
 
+        public SpikeTestScenario(string name, int max_rate, TimeSpan interval, TimeSpan duration, RequestParametres requestParametres)
+            : base(name, max_rate, interval, duration, requestParametres) { }
         public override ScenarioProps Create()
         {
             return Scenario.Create("spike_test_scenario", async context =>

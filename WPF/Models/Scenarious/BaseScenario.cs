@@ -1,5 +1,6 @@
 ﻿using NBomber.Contracts;
 using System.Net.Http;
+using WPF.Common;
 using WPF.Models.Requests;
 
 namespace WPF.Models.Scenarious
@@ -7,7 +8,7 @@ namespace WPF.Models.Scenarious
     public abstract class BaseScenario
     {
         protected HttpClient _httpClient = new HttpClient();
-        public int Id { get; init; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public int MaxRate { get; set; }
         public TimeSpan Interval { get; set; }
@@ -22,14 +23,25 @@ namespace WPF.Models.Scenarious
             Duration = duration;
         }
 
+        protected BaseScenario(string name, int max_rate, TimeSpan interval, TimeSpan duration, RequestParametres requestParametres) 
+            : this(name, max_rate, interval, duration)
+        {
+            RequestParametres = requestParametres;
+        }
+
         public abstract ScenarioProps Create();
 
         protected HttpRequestMessage CreateRequest()
         {
             var localRequestParametres = RequestParametres;
             var requestFactory = localRequestParametres != null ? RequestFactory.CreateFactory(localRequestParametres)
-                                                            : throw new NullReferenceException("Request parametres are absent");
+                                                            : throw new ScenarioMissingRequestParametersException(this);
             return requestFactory();
+        }
+
+        public bool IsRequestParametresExist()
+        { 
+            return RequestParametres != null;
         }
     }
 }
