@@ -7,6 +7,64 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Create scenario" FontSize="24"/>
+
+        <Grid Grid.Row="1" Margin="0 15 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Name" Margin="0 0 5 0"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="Max rate" Margin="5 0 0 0"/>
+
+            <TextBox Grid.Row="1" Grid.Column="0" Text="" Margin="0 0 5 0" MinWidth="100px" MaxWidth="295px"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="5 0 0 0" MinWidth="100px" MaxWidth="295px"/>
+        </Grid>
+
+        <Grid Grid.Row="2" Margin="0 15 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Interval" Margin="0 0 5 0"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="Duration" Margin="5 0 0 0"/>
+
+            <TextBox Grid.Row="1" Grid.Column="0" Text="" Margin="0 0 5 0" MinWidth="100px" MaxWidth="295px"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="5 0 0 0" MinWidth="100px" MaxWidth="295px"/>
+        </Grid>
+
+        <Grid Grid.Row="3" Margin="0 15 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Type of test"/>
+
+            <ComboBox Grid.Row="1" Text="" Width="210px" HorizontalAlignment="Left"/>
+        </Grid>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0 25 0 0">
+            <Button Content="Submit" Margin="0 0 5 0" />
+            <Button Content="Cancel" Margin="5 0 0 0" />
+        </StackPanel>
     </Grid>
 </UserControl>
