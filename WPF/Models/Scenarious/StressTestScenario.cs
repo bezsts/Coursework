@@ -7,6 +7,8 @@ namespace WPF.Models.Scenarious
 {
     class StressTestScenario : BaseScenario
     {
+        public override string TestType { get { return "Stress"; } }
+
         public StressTestScenario(string name, int max_rate, TimeSpan interval, TimeSpan duration)
             : base(name, max_rate, interval, duration) { }
 

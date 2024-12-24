@@ -7,6 +7,8 @@ namespace WPF.Models.Scenarious
 {
     class SpikeTestScenario : BaseScenario
     {
+        public override string TestType { get { return "Spike"; } }
+
         public SpikeTestScenario(string name, int max_rate, TimeSpan interval, TimeSpan duration)
             : base(name, max_rate, interval, duration) { }
 

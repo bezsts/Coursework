@@ -1,6 +1,6 @@
 ﻿using WPF.Models.Scenarious;
 
-namespace WPF.Common
+namespace WPF.Common.Exceptions
 {
     class ScenarioMissingRequestParametersException : Exception
     {

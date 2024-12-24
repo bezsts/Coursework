@@ -1,6 +1,6 @@
 ﻿using NBomber.Contracts;
 using System.Net.Http;
-using WPF.Common;
+using WPF.Common.Exceptions;
 using WPF.Models.Requests;
 
 namespace WPF.Models.Scenarious
@@ -14,6 +14,7 @@ namespace WPF.Models.Scenarious
         public TimeSpan Interval { get; set; }
         public TimeSpan Duration { get; set; }
         public RequestParametres? RequestParametres { get; set; }
+        public abstract string TestType { get; }
 
         protected BaseScenario(string name, int max_rate, TimeSpan interval, TimeSpan duration)
         {
@@ -23,7 +24,7 @@ namespace WPF.Models.Scenarious
             Duration = duration;
         }
 
-        protected BaseScenario(string name, int max_rate, TimeSpan interval, TimeSpan duration, RequestParametres requestParametres) 
+        protected BaseScenario(string name, int max_rate, TimeSpan interval, TimeSpan duration, RequestParametres requestParametres)
             : this(name, max_rate, interval, duration)
         {
             RequestParametres = requestParametres;
@@ -40,7 +41,7 @@ namespace WPF.Models.Scenarious
         }
 
         public bool IsRequestParametresExist()
-        { 
+        {
             return RequestParametres != null;
         }
     }

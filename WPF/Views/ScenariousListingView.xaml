@@ -19,17 +19,55 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="Scenarious" FontSize="24"/>
-            <Button Grid.Column="1" Margin="10 0 0 0" Content="Create scenario"/>
+            <Button Grid.Column="1" Margin="10 0 0 0" Content="Create scenario"
+                    Command="{Binding CreateScenarioCommand}"/>
         </Grid>
 
-        <ListView Grid.Row="1" Margin="0 25 0 0">
+        <ListView Grid.Row="1" Margin="0 25 0 0" ItemsSource="{Binding Scenarious}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Name"/>
-                    <GridViewColumn Header="Type"/>
-                    <GridViewColumn Header="MaxRate"/>
-                    <GridViewColumn Header="Interval"/>
-                    <GridViewColumn Header="Duration"/>
+                    <GridViewColumn Header="Name">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Type">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding TestType}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Request Name">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding RequestParametresName}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="MaxRate">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding MaxRate}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Interval">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Interval}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Duration">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Duration}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

@@ -1,8 +1,5 @@
 ﻿using System.Windows;
-using WPF.Common;
-using WPF.Models;
-using WPF.Models.Requests;
-using WPF.Models.Scenarious;
+using WPF.ViewModels;
 
 namespace WPF
 {
@@ -13,17 +10,11 @@ namespace WPF
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            ScenarioManager scenarioManager = new ScenarioManager();
-
-            var loadScenario = scenarioManager.AddScenario(
-                new LoadTestScenario("Load test", 1000, TimeSpan.FromSeconds(1), TimeSpan.FromMinutes(1),
-                    new RequestParametres("google parametres", "google.com")));
-
-            var spikeScenario = scenarioManager.AddScenario(
-                new SpikeTestScenario("Spike test", 1000, TimeSpan.FromSeconds(1), TimeSpan.FromMinutes(1)));
-
-            IEnumerable<BaseScenario> baseScenarios = scenarioManager.GetScenarios();
-
+            MainWindow = new MainWindow()
+            {
+                DataContext = new MainViewModel()
+            };
+            MainWindow.Show();
             base.OnStartup(e);
         }
     }

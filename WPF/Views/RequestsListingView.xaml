@@ -19,15 +19,34 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="Requests" FontSize="24"/>
-            <Button Grid.Column="1" Margin="10 0 0 0" Content="Create request"/>
+            <Button Grid.Column="1" Margin="10 0 0 0" Content="Create request"
+                    Command="{Binding CreateRequestCommand}"/>
         </Grid>
 
-        <ListView Grid.Row="1" Margin="0 25 0 0">
+        <ListView Grid.Row="1" Margin="0 25 0 0" ItemsSource="{Binding RequestParametres}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Name"/>
-                    <GridViewColumn Header="Method"/>
-                    <GridViewColumn Header="Url"/>
+                    <GridViewColumn Header="Name">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>                        
+                    </GridViewColumn>
+                    <GridViewColumn Header="Method">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Method}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Url">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Url}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

@@ -1,6 +1,6 @@
 ﻿using NBomber.Contracts;
 using NBomber.CSharp;
-using WPF.Common;
+using WPF.Common.Exceptions;
 using WPF.Models.Requests;
 using WPF.Models.Scenarious;
 
@@ -34,13 +34,13 @@ namespace WPF.Models
         }
 
         public RequestParametres AddRequestParametres(RequestParametres requestParametres)
-        { 
+        {
             _requestParametres.Add(requestParametres);
             return requestParametres;
         }
 
         public void AddRequestParametresToScenario(RequestParametres requestParametres, BaseScenario scenario)
-        { 
+        {
             scenario.RequestParametres = requestParametres;
         }
 

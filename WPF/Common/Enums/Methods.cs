@@ -1,6 +1,6 @@
-﻿namespace WPF.Common
+﻿namespace WPF.Common.Enums
 {
-    enum Methods
+    public enum Methods
     {
         GET,
         PUT,

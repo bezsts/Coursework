@@ -7,6 +7,8 @@ namespace WPF.Models.Scenarious
 {
     class SoakTestScenario : BaseScenario
     {
+        public override string TestType { get { return "Soak"; } }
+
         public SoakTestScenario(string name, int max_rate, TimeSpan interval, TimeSpan duration)
             : base(name, max_rate, interval, duration) { }
 
