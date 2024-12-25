@@ -7,7 +7,7 @@ using WPF.ViewModels;
 
 namespace WPF.Commands
 {
-    public class CreateScenarioCommand : CommandBase
+    public class CreateScenarioCommand : AsyncCommandBase
     {
         private readonly ScenarioManager _scenarioManager;
         private readonly CreateScenarioViewModel _createScenarioViewModel;
@@ -20,13 +20,13 @@ namespace WPF.Commands
             _createScenarioViewModel = createScenarioViewModel;
             _navigationService = navigationService;
         }
-        public override void Execute(object? parameter)
+        public override async Task ExecuteAsync(object? parameter)
         {
             try
             {
                 BaseScenario scenario = ScenarioFactory.CreateScenario(_createScenarioViewModel.SelectedTest, _createScenarioViewModel);
-                _scenarioManager.AddRequestParametresToScenario(_createScenarioViewModel.SelectedRequest, scenario);
-                _scenarioManager.AddScenario(scenario);
+                await _scenarioManager.AddRequestParametresToScenarioAsync(_createScenarioViewModel.SelectedRequestId, scenario);
+                await _scenarioManager.AddScenario(scenario);
                 _navigationService.Navigate();
             }
             catch (ArgumentException ex)
@@ -40,6 +40,11 @@ namespace WPF.Commands
             catch (ScenarioMissingProperty)
             {
                 MessageBox.Show("Scenario is missing some property", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Failed to create scenario", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

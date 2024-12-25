@@ -1,5 +1,6 @@
 ﻿using NBomber.Contracts;
 using System.Net.Http;
+using WPF.Common.Enums;
 using WPF.Common.Exceptions;
 using WPF.Models.Requests;
 
@@ -14,7 +15,7 @@ namespace WPF.Models.Scenarious
         public TimeSpan Interval { get; set; }
         public TimeSpan Duration { get; set; }
         public RequestParametres? RequestParametres { get; set; }
-        public abstract string TestType { get; }
+        public abstract Tests TestType { get; }
 
         protected BaseScenario(string name, int max_rate, TimeSpan interval, TimeSpan duration)
         {

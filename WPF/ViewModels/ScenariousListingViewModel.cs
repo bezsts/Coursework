@@ -15,6 +15,7 @@ namespace WPF.ViewModels
 
         public IEnumerable<ScenariousViewModel> Scenarious => _scenarious;
         public ICommand CreateScenarioCommand { get; }
+        public ICommand LoadScenariousCommand { get; }
         public ICommand NavigateToRequests {  get; }
 
         public ScenariousListingViewModel(ScenarioManager scenarioManager, 
@@ -24,15 +25,26 @@ namespace WPF.ViewModels
             _scenarious = new ObservableCollection<ScenariousViewModel>();
 
             CreateScenarioCommand = new NavigateCommand(navigationCreateScenarioService);
+            LoadScenariousCommand = new LoadScenariousCommand(scenarioManager, this);
             NavigateToRequests = new NavigateCommand(navigationRequestService);
-            UpdateScenarious();
         }
 
-        private void UpdateScenarious()
+        public static ScenariousListingViewModel LoadViewModel(ScenarioManager scenarioManager,
+            NavigationService navigationCreateRequestService,
+            NavigationService navigationScenariousService)
+        {
+            ScenariousListingViewModel viewModel = new ScenariousListingViewModel(scenarioManager, navigationCreateRequestService, navigationScenariousService);
+
+            viewModel.LoadScenariousCommand.Execute(null);
+
+            return viewModel;
+        }
+
+        public void UpdateScenarious(IEnumerable<BaseScenario> scenarious)
         {
             _scenarious.Clear();
 
-            foreach (var scenario in _scenarioManager.GetScenarios())
+            foreach (var scenario in scenarious)
             {
                 ScenariousViewModel scenariousViewModel = new ScenariousViewModel(scenario);
 

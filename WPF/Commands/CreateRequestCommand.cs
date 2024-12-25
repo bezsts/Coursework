@@ -8,7 +8,7 @@ using WPF.ViewModels;
 
 namespace WPF.Commands
 {
-    public class CreateRequestCommand : CommandBase
+    public class CreateRequestCommand : AsyncCommandBase
     {
         private readonly CreateRequestViewModel _createRequestViewModel;
         private readonly ScenarioManager _scenarioManager;
@@ -21,7 +21,7 @@ namespace WPF.Commands
             _scenarioManager = scenarioManager;
             _navigationService = navigationService;
         }
-        public override void Execute(object? parameter)
+        public override async Task ExecuteAsync(object? parameter)
         {
             RequestParametres requestParametres = new RequestParametres(
                 _createRequestViewModel.Name,
@@ -33,12 +33,17 @@ namespace WPF.Commands
 
             try
             {
-                _scenarioManager.AddRequestParametres(requestParametres);
+                await _scenarioManager.AddRequestParametres(requestParametres);
                 _navigationService.Navigate();
             }
             catch (UrlMissingException)
             {
                 MessageBox.Show("Url is empty", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Failed to create request", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

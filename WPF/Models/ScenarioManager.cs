@@ -3,31 +3,38 @@ using NBomber.CSharp;
 using WPF.Common.Exceptions;
 using WPF.Models.Requests;
 using WPF.Models.Scenarious;
+using WPF.Services.Creators;
+using WPF.Services.Providers;
 
 namespace WPF.Models
 {
     public class ScenarioManager
     {
-        private readonly List<BaseScenario> _scenarious;
-        private readonly List<RequestParametres> _requestParametres;
+        private readonly IScenarioProvider _scenarioProvider;
+        private readonly IScenarioCreator _scenarioCreator;
+        private readonly IRequestProvider _requestProvider;
+        private readonly IRequestCreator _requestCreator;
 
-        public ScenarioManager()
+        public ScenarioManager(IScenarioProvider scenarioProvider, IScenarioCreator scenarioCreator, 
+                               IRequestProvider requestProvider, IRequestCreator requestCreator)
         {
-            _scenarious = new List<BaseScenario>();
-            _requestParametres = new List<RequestParametres>();
+            _scenarioProvider = scenarioProvider;
+            _scenarioCreator = scenarioCreator;
+            _requestProvider = requestProvider;
+            _requestCreator = requestCreator;
         }
 
-        public IEnumerable<BaseScenario> GetScenarios()
+        public async Task<IEnumerable<BaseScenario>> GetScenarios()
         {
-            return _scenarious;
+            return await _scenarioProvider.GetAllScenarious();
         }
 
-        public IEnumerable<RequestParametres> GetRequestParametres()
+        public async Task<IEnumerable<RequestParametres>> GetRequestParametres()
         {
-            return _requestParametres;
+            return await _requestProvider.GetAllRequests();
         }
 
-        public BaseScenario AddScenario(BaseScenario scenario)
+        public async Task<BaseScenario> AddScenario(BaseScenario scenario)
         {
             if (!scenario.IsRequestParametresExist())
             {
@@ -38,23 +45,24 @@ namespace WPF.Models
             {
                 throw new ScenarioMissingProperty();
             }
-            _scenarious.Add(scenario);
+            await _scenarioCreator.CreateScenario(scenario);
             return scenario;
         }
 
-        public RequestParametres AddRequestParametres(RequestParametres requestParametres)
+        public async Task<RequestParametres> AddRequestParametres(RequestParametres requestParametres)
         {
             if (string.IsNullOrEmpty(requestParametres.Url))
             {
                 throw new UrlMissingException();
             }
 
-            _requestParametres.Add(requestParametres);
+            await _requestCreator.CreateRequest(requestParametres);
             return requestParametres;
         }
 
-        public void AddRequestParametresToScenario(RequestParametres requestParametres, BaseScenario scenario)
+        public async Task AddRequestParametresToScenarioAsync(int requestParametresId, BaseScenario scenario)
         {
+            RequestParametres? requestParametres = await _requestProvider.GetRequestParametresById(requestParametresId);
             scenario.RequestParametres = requestParametres;
         }
 

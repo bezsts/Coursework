@@ -4,7 +4,6 @@ using WPF.Common.Enums;
 using WPF.Models;
 using WPF.Models.Requests;
 using WPF.Services;
-using WPF.Stores;
 
 namespace WPF.ViewModels
 {
@@ -86,16 +85,19 @@ namespace WPF.ViewModels
 
         public List<RequestParametres> Requests { get; set; }
 
+        public int SelectedRequestId => _selectedRequest.Id;
+
         public RequestParametres SelectedRequest
         {
-            get 
+            get
             {
-                return _selectedRequest; 
+                return _selectedRequest;
             }
-            set 
-            { 
+            set
+            {
                 _selectedRequest = value;
                 OnPropertyChanged(nameof(SelectedRequest));
+                OnPropertyChanged(nameof(SelectedRequestId));
             }
         }
 
@@ -106,9 +108,17 @@ namespace WPF.ViewModels
         public CreateScenarioViewModel(ScenarioManager scenarioManager, NavigationService navigationService)
         {
             TestTypes = Enum.GetValues(typeof(Tests)).Cast<Tests>().ToList();
-            Requests = scenarioManager.GetRequestParametres().ToList();
+            Requests = new List<RequestParametres>();
             SubmitCommand = new CreateScenarioCommand(scenarioManager, this, navigationService);
             CancelCommand = new NavigateCommand(navigationService);
+
+            _ = InitializeAsync(scenarioManager);
+        }
+
+        private async Task InitializeAsync(ScenarioManager scenarioManager)
+        {
+            Requests = (await scenarioManager.GetRequestParametres()).ToList();
+            OnPropertyChanged(nameof(Requests));
         }
     }
 }

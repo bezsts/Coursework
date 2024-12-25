@@ -1,13 +1,14 @@
 ﻿using NBomber.Contracts;
 using NBomber.CSharp;
 using NBomber.Http.CSharp;
+using WPF.Common.Enums;
 using WPF.Models.Requests;
 
 namespace WPF.Models.Scenarious
 {
     class StressTestScenario : BaseScenario
     {
-        public override string TestType { get { return "Stress"; } }
+        public override Tests TestType { get { return Tests.Stress; } }
 
         public StressTestScenario(string name, int max_rate, TimeSpan interval, TimeSpan duration)
             : base(name, max_rate, interval, duration) { }
