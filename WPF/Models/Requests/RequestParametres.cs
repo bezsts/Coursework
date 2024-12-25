@@ -24,5 +24,7 @@
             ContentType = contentType;
             Body = body;
         }
+
+        public override string ToString() => Name;
     }
 }

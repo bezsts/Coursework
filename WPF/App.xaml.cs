@@ -17,6 +17,7 @@ namespace WPF
         }
         protected override void OnStartup(StartupEventArgs e)
         {
+            _scenarioManager.AddRequestParametres(new Models.Requests.RequestParametres("Request 1", "google.com"));
             MainWindow = new MainWindow()
             {
                 DataContext = new MainViewModel(_scenarioManager)

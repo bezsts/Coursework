@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Windows;
+﻿using System.Windows;
 using WPF.Common.Enums;
 using WPF.Common.Exceptions;
 using WPF.Models;

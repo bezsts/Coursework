@@ -29,6 +29,15 @@ namespace WPF.Models
 
         public BaseScenario AddScenario(BaseScenario scenario)
         {
+            if (!scenario.IsRequestParametresExist())
+            {
+                throw new ScenarioMissingRequestParametersException(scenario);
+            }
+            if (string.IsNullOrEmpty(scenario.Name) || scenario.MaxRate == 0 || scenario.Interval == TimeSpan.Zero
+                || scenario.Duration == TimeSpan.Zero)
+            {
+                throw new ScenarioMissingProperty();
+            }
             _scenarious.Add(scenario);
             return scenario;
         }

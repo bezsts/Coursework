@@ -1,11 +1,19 @@
 ﻿using System.Windows.Input;
+using WPF.Commands;
 using WPF.Common.Enums;
+using WPF.Models;
+using WPF.Models.Requests;
 
 namespace WPF.ViewModels
 {
     public class CreateScenarioViewModel : ViewModelBase
     {
-        private string _name;
+        private string _name = "Scenario";
+        private int _maxRate = 0;
+        private int _interval = 0;
+        private int _duration = 0;
+        private Tests _selectedTest = Tests.Load;
+        private RequestParametres _selectedRequest;
 
         public string Name
         {
@@ -20,8 +28,6 @@ namespace WPF.ViewModels
             }
         }
 
-        private int _maxRate;
-
         public int MaxRate
         {
             get
@@ -35,8 +41,6 @@ namespace WPF.ViewModels
             }
         }
 
-        private int _interval;
-
         public int Interval
         {
             get
@@ -49,8 +53,6 @@ namespace WPF.ViewModels
                 OnPropertyChanged(nameof(Interval));
             }
         }
-
-        private int _duration;
 
         public int Duration
         {
@@ -67,8 +69,6 @@ namespace WPF.ViewModels
 
         public List<Tests> TestTypes { get; set; }
 
-        private Tests _selectedTest;
-
         public Tests SelectedTest
         {
             get
@@ -82,12 +82,30 @@ namespace WPF.ViewModels
             }
         }
 
+        public List<RequestParametres> Requests { get; set; }
+
+        public RequestParametres SelectedRequest
+        {
+            get 
+            {
+                return _selectedRequest; 
+            }
+            set 
+            { 
+                _selectedRequest = value;
+                OnPropertyChanged(nameof(SelectedRequest));
+            }
+        }
+
+
         public ICommand SubmitCommand { get; }
         public ICommand CancelCommand { get; }
 
-        public CreateScenarioViewModel()
+        public CreateScenarioViewModel(ScenarioManager scenarioManager)
         {
             TestTypes = Enum.GetValues(typeof(Tests)).Cast<Tests>().ToList();
+            Requests = scenarioManager.GetRequestParametres().ToList();
+            SubmitCommand = new CreateScenarioCommand(scenarioManager, this);
         }
     }
 }

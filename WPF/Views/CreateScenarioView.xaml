@@ -60,11 +60,20 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0" Text="Type of test"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Type of test"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="Request" Margin="5 0 0 0"/>
 
-            <ComboBox Grid.Row="1" Text="" Width="210px" HorizontalAlignment="Left"
-                      ItemsSource="{Binding TestTypes}" SelectedItem="{Binding SelectedTest, UpdateSourceTrigger=PropertyChanged}"/>
+            <ComboBox Grid.Row="1" Grid.Column="0" Text="" Width="210px" HorizontalAlignment="Left"
+                      ItemsSource="{Binding TestTypes}" SelectedItem="{Binding SelectedTest, UpdateSourceTrigger=PropertyChanged}"
+                      Margin="0 0 5 0"/>
+            <ComboBox Grid.Row="1" Grid.Column="1" Text="" Width="210px" HorizontalAlignment="Left"
+                      ItemsSource="{Binding Requests}" SelectedItem="{Binding SelectedRequest, UpdateSourceTrigger=PropertyChanged}"
+                      Margin="5 0 0 0"/>
         </Grid>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0 25 0 0">

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WPF.Models;
+﻿using WPF.Models;
 
 namespace WPF.ViewModels
 {
@@ -13,7 +8,7 @@ namespace WPF.ViewModels
 
         public MainViewModel(ScenarioManager scenarioManager)
         {
-            CurrentViewModel = new CreateScenarioViewModel();
+            CurrentViewModel = new CreateScenarioViewModel(scenarioManager);
         }
     }
 }
