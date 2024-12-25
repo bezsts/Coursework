@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPF.Models;
 
 namespace WPF.ViewModels
 {
@@ -10,9 +11,9 @@ namespace WPF.ViewModels
     {
         public ViewModelBase CurrentViewModel { get; }
 
-        public MainViewModel()
+        public MainViewModel(ScenarioManager scenarioManager)
         {
-            CurrentViewModel = new RequestsListingViewModel();
+            CurrentViewModel = new CreateScenarioViewModel();
         }
     }
 }

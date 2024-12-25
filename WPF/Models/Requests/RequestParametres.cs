@@ -15,5 +15,14 @@
             Name = name;
             Url = url;
         }
+
+        public RequestParametres(string name, string url, string method, string contentType, string body)
+        {
+            Name = name;
+            Url = url;
+            Method = method;
+            ContentType = contentType;
+            Body = body;
+        }
     }
 }

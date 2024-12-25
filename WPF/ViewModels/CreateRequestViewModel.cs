@@ -1,15 +1,17 @@
 ﻿using System.Windows.Input;
+using WPF.Commands;
 using WPF.Common.Enums;
+using WPF.Models;
 
 namespace WPF.ViewModels
 {
     public class CreateRequestViewModel : ViewModelBase
     {
-        private string _name;
-        private Methods _selectedMethod;
+        private string _name = "Request";
+        private Methods _selectedMethod = Methods.GET;
         private string _url;
-        private string _contentType;
-        private string _body;
+        private string _contentType = "\"application/json\"";
+        private string _body = string.Empty;
 
         public string Name
         {
@@ -81,9 +83,11 @@ namespace WPF.ViewModels
         public ICommand SubmitCommand { get; }
         public ICommand CancelCommand { get; }
 
-        public CreateRequestViewModel()
+        public CreateRequestViewModel(ScenarioManager scenarioManager)
         {
             MethodTypes = Enum.GetValues(typeof(Methods)).Cast<Methods>().ToList();
+            SubmitCommand = new CreateRequestCommand(this, scenarioManager);
+            CancelCommand = new CancelCreateRequestCommand();
         }
     }
 }

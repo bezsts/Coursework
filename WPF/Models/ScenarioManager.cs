@@ -6,7 +6,7 @@ using WPF.Models.Scenarious;
 
 namespace WPF.Models
 {
-    class ScenarioManager
+    public class ScenarioManager
     {
         private readonly List<BaseScenario> _scenarious;
         private readonly List<RequestParametres> _requestParametres;
@@ -35,6 +35,11 @@ namespace WPF.Models
 
         public RequestParametres AddRequestParametres(RequestParametres requestParametres)
         {
+            if (string.IsNullOrEmpty(requestParametres.Url))
+            {
+                throw new UrlMissingException();
+            }
+
             _requestParametres.Add(requestParametres);
             return requestParametres;
         }
