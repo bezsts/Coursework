@@ -3,6 +3,7 @@ using WPF.Common.Enums;
 using WPF.Common.Exceptions;
 using WPF.Models;
 using WPF.Models.Requests;
+using WPF.Services;
 using WPF.ViewModels;
 
 namespace WPF.Commands
@@ -11,12 +12,14 @@ namespace WPF.Commands
     {
         private readonly CreateRequestViewModel _createRequestViewModel;
         private readonly ScenarioManager _scenarioManager;
+        private readonly NavigationService _navigationService;
 
-        public CreateRequestCommand(CreateRequestViewModel createRequestViewModel, ScenarioManager scenarioManager)
+        public CreateRequestCommand(CreateRequestViewModel createRequestViewModel, ScenarioManager scenarioManager,
+            NavigationService navigationService)
         {
             _createRequestViewModel = createRequestViewModel;
             _scenarioManager = scenarioManager;
-
+            _navigationService = navigationService;
         }
         public override void Execute(object? parameter)
         {
@@ -31,6 +34,7 @@ namespace WPF.Commands
             try
             {
                 _scenarioManager.AddRequestParametres(requestParametres);
+                _navigationService.Navigate();
             }
             catch (UrlMissingException)
             {

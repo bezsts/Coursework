@@ -2,6 +2,8 @@
 using WPF.Commands;
 using WPF.Common.Enums;
 using WPF.Models;
+using WPF.Services;
+using WPF.Stores;
 
 namespace WPF.ViewModels
 {
@@ -10,7 +12,7 @@ namespace WPF.ViewModels
         private string _name = "Request";
         private Methods _selectedMethod = Methods.GET;
         private string _url;
-        private string _contentType = "\"application/json\"";
+        private string _contentType = "application/json";
         private string _body = string.Empty;
 
         public string Name
@@ -83,11 +85,11 @@ namespace WPF.ViewModels
         public ICommand SubmitCommand { get; }
         public ICommand CancelCommand { get; }
 
-        public CreateRequestViewModel(ScenarioManager scenarioManager)
+        public CreateRequestViewModel(ScenarioManager scenarioManager, NavigationService navigationService)
         {
             MethodTypes = Enum.GetValues(typeof(Methods)).Cast<Methods>().ToList();
-            SubmitCommand = new CreateRequestCommand(this, scenarioManager);
-            CancelCommand = new CancelCreateRequestCommand();
+            SubmitCommand = new CreateRequestCommand(this, scenarioManager, navigationService);
+            CancelCommand = new NavigateCommand(navigationService);
         }
     }
 }

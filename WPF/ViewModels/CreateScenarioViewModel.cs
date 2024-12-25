@@ -3,6 +3,8 @@ using WPF.Commands;
 using WPF.Common.Enums;
 using WPF.Models;
 using WPF.Models.Requests;
+using WPF.Services;
+using WPF.Stores;
 
 namespace WPF.ViewModels
 {
@@ -101,11 +103,12 @@ namespace WPF.ViewModels
         public ICommand SubmitCommand { get; }
         public ICommand CancelCommand { get; }
 
-        public CreateScenarioViewModel(ScenarioManager scenarioManager)
+        public CreateScenarioViewModel(ScenarioManager scenarioManager, NavigationService navigationService)
         {
             TestTypes = Enum.GetValues(typeof(Tests)).Cast<Tests>().ToList();
             Requests = scenarioManager.GetRequestParametres().ToList();
-            SubmitCommand = new CreateScenarioCommand(scenarioManager, this);
+            SubmitCommand = new CreateScenarioCommand(scenarioManager, this, navigationService);
+            CancelCommand = new NavigateCommand(navigationService);
         }
     }
 }

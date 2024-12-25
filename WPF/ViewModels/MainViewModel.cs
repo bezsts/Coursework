@@ -1,14 +1,22 @@
-﻿using WPF.Models;
+﻿using WPF.Stores;
 
 namespace WPF.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        public ViewModelBase CurrentViewModel { get; }
+        private readonly NavigationStore _navigationStore;
+        public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
 
-        public MainViewModel(ScenarioManager scenarioManager)
+        public MainViewModel(NavigationStore navigationStore)
         {
-            CurrentViewModel = new CreateScenarioViewModel(scenarioManager);
+            _navigationStore = navigationStore;
+
+            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+        }
+
+        private void OnCurrentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentViewModel));
         }
     }
 }
