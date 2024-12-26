@@ -2,6 +2,7 @@
 using System.Net.Http;
 using WPF.Common.Enums;
 using WPF.Common.Exceptions;
+using WPF.DTOs;
 using WPF.Models.Requests;
 
 namespace WPF.Models.Scenarious
@@ -28,6 +29,16 @@ namespace WPF.Models.Scenarious
         protected BaseScenario(string name, int max_rate, TimeSpan interval, TimeSpan duration, RequestParametres requestParametres)
             : this(name, max_rate, interval, duration)
         {
+            RequestParametres = requestParametres;
+        }
+
+        protected BaseScenario(ScenarioDTO scenarioDTO, RequestParametres requestParametres)
+        { 
+            Id = scenarioDTO.Id;
+            Name = scenarioDTO.Name;
+            MaxRate = scenarioDTO.MaxRate;
+            Interval = scenarioDTO.Interval;
+            Duration = scenarioDTO.Duration;
             RequestParametres = requestParametres;
         }
 

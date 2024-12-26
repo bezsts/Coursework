@@ -11,10 +11,23 @@ namespace WPF.ViewModels
     {
         private readonly ObservableCollection<RequestParametresViewModel> _requestParametres;
 
+        private RequestParametresViewModel _selectedRequest;
+
+        public RequestParametresViewModel SelectedRequest
+        {
+            get { return _selectedRequest; }
+            set 
+            { 
+                _selectedRequest = value;
+                OnPropertyChanged(nameof(SelectedRequest));
+            }
+        }
+
         public IEnumerable<RequestParametresViewModel> RequestParametres => _requestParametres;
         public ICommand CreateRequestCommand { get; }
+        public ICommand DeleteRequestCommand { get; }
         public ICommand LoadRequestsCommand { get; }
-        public ICommand NavigateToScenarious {  get; }
+        public ICommand NavigateToScenarious { get; }
 
         public RequestsListingViewModel(ScenarioManager scenarioManager, 
             NavigationService navigationCreateRequestService,
@@ -22,6 +35,7 @@ namespace WPF.ViewModels
         {
             _requestParametres = new ObservableCollection<RequestParametresViewModel>();
             CreateRequestCommand = new NavigateCommand(navigationCreateRequestService);
+            DeleteRequestCommand = new DeleteRequestCommand(this, scenarioManager);
             LoadRequestsCommand = new LoadRequestsCommand(scenarioManager, this);
             NavigateToScenarious = new NavigateCommand(navigationScenariousService);
         }

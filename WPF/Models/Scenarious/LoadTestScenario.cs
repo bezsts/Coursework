@@ -2,6 +2,7 @@
 using NBomber.CSharp;
 using NBomber.Http.CSharp;
 using WPF.Common.Enums;
+using WPF.DTOs;
 using WPF.Models.Requests;
 
 namespace WPF.Models.Scenarious
@@ -15,6 +16,9 @@ namespace WPF.Models.Scenarious
         public LoadTestScenario(string name, int max_rate, TimeSpan interval, TimeSpan duration, RequestParametres requestParametres)
             : base(name, max_rate, interval, duration, requestParametres) { }
 
+        public LoadTestScenario(ScenarioDTO scenarioDTO, RequestParametres requestParametres) 
+            : base(scenarioDTO, requestParametres) { }
+
         public override ScenarioProps Create()
         {
             return Scenario.Create("load_test_scenario", async context =>
@@ -23,7 +27,7 @@ namespace WPF.Models.Scenarious
                 var response = await Http.Send(_httpClient, request);
                 return response;
             })
-            .WithWarmUpDuration(TimeSpan.FromSeconds(10))
+            .WithoutWarmUp()
             .WithLoadSimulations(
                 Simulation.RampingInject(rate: MaxRate,
                                          interval: Interval,

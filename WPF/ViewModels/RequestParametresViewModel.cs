@@ -5,6 +5,7 @@ namespace WPF.ViewModels
     public class RequestParametresViewModel : ViewModelBase
     {
         private readonly RequestParametres _requestParametres;
+        public RequestParametres RequestParametres { get { return _requestParametres; } }
         public int Id => _requestParametres.Id;
         public string Name => _requestParametres.Name;
         public string Method => _requestParametres.Method;

@@ -5,6 +5,7 @@ using WPF.Models;
 using WPF.Services;
 using WPF.Services.Creators;
 using WPF.Services.Providers;
+using WPF.Services.Removers;
 using WPF.Stores;
 using WPF.ViewModels;
 
@@ -25,10 +26,14 @@ namespace WPF
             _dataModelContextFactory = new DataModelContextFactory(ConnectionString);
             IScenarioProvider scenarioProvider = new DatabaseProvider(_dataModelContextFactory);
             IScenarioCreator scenarioCreator = new DatabaseCreator(_dataModelContextFactory);
+            IScenarioRemover scenarioRemover = new DatabaseRemover(_dataModelContextFactory);
             IRequestProvider requestProvider = new DatabaseProvider(_dataModelContextFactory);
             IRequestCreator requestCreator = new DatabaseCreator(_dataModelContextFactory);
+            IRequestRemover requestRemover = new DatabaseRemover(_dataModelContextFactory);
 
-            _scenarioManager = new ScenarioManager(scenarioProvider, scenarioCreator, requestProvider, requestCreator);
+            _scenarioManager = new ScenarioManager(scenarioProvider, scenarioCreator, 
+                                                   requestProvider, requestCreator, 
+                                                   scenarioRemover, requestRemover);
             _navigationStore = new NavigationStore();
         }
         protected override void OnStartup(StartupEventArgs e)

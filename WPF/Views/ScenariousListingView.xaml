@@ -10,6 +10,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -17,16 +18,20 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="Scenarious" FontSize="24"/>
-            <Button Grid.Column="1" Margin="10 0 0 0" Content="Create scenario"
-                    Command="{Binding CreateScenarioCommand}"/>
-            <Button Grid.Column="2" Margin="10 0 0 0" Content="Requests"
+            <Button Grid.Column="1" Margin="10 0 0 0" Content="Requests"
                     Command="{Binding NavigateToRequests}"/>
+            <Button Grid.Column="2" Margin="10 0 0 0" Content="Create scenario"
+                    Command="{Binding CreateScenarioCommand}"/>
+            <Button Grid.Column="3" Margin="10 0 0 0" Content="Delete scenario"
+                    Command="{Binding DeleteScenarioCommand}"/>
         </Grid>
 
-        <ListView Grid.Row="1" Margin="0 25 0 0" ItemsSource="{Binding Scenarious}">
+        <ListView Grid.Row="1" Margin="0 25 0 0" ItemsSource="{Binding Scenarious}"
+                  SelectedItem="{Binding SelectedScenario}" SelectionMode="Single">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name">
@@ -74,5 +79,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
+
+        <Button Grid.Row="2" Content="Run scenario"
+                Command="{Binding RunScenariousCommand}"/>
     </Grid>
 </UserControl>

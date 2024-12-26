@@ -40,28 +40,16 @@ namespace WPF.Models.Scenarious
             return type switch
             {
                 Tests.Load => new LoadTestScenario(
-                    scenarioDTO.Name,
-                    scenarioDTO.MaxRate,
-                    scenarioDTO.Interval,
-                    scenarioDTO.Duration,
+                    scenarioDTO,
                     ToRequest(scenarioDTO.RequestParametres)),
                 Tests.Soak => new SoakTestScenario(
-                    scenarioDTO.Name,
-                    scenarioDTO.MaxRate,
-                    scenarioDTO.Interval,
-                    scenarioDTO.Duration,
+                    scenarioDTO,
                     ToRequest(scenarioDTO.RequestParametres)),
                 Tests.Spike => new SpikeTestScenario(
-                    scenarioDTO.Name,
-                    scenarioDTO.MaxRate,
-                    scenarioDTO.Interval,
-                    scenarioDTO.Duration,
+                    scenarioDTO,
                     ToRequest(scenarioDTO.RequestParametres)),
                 Tests.Stress => new StressTestScenario(
-                    scenarioDTO.Name,
-                    scenarioDTO.MaxRate,
-                    scenarioDTO.Interval,
-                    scenarioDTO.Duration,
+                    scenarioDTO,
                     ToRequest(scenarioDTO.RequestParametres)),
                 _ => throw new ArgumentException($"Unknown test type: {type}")
             };

@@ -1,10 +1,11 @@
-﻿using NBomber.Contracts;
-using NBomber.CSharp;
+﻿using NBomber.CSharp;
 using WPF.Common.Exceptions;
 using WPF.Models.Requests;
 using WPF.Models.Scenarious;
+using WPF.Models.Sinks;
 using WPF.Services.Creators;
 using WPF.Services.Providers;
+using WPF.Services.Removers;
 
 namespace WPF.Models
 {
@@ -12,16 +13,21 @@ namespace WPF.Models
     {
         private readonly IScenarioProvider _scenarioProvider;
         private readonly IScenarioCreator _scenarioCreator;
+        private readonly IScenarioRemover _scenarioRemover;
         private readonly IRequestProvider _requestProvider;
         private readonly IRequestCreator _requestCreator;
+        private readonly IRequestRemover _requestRemover;
 
-        public ScenarioManager(IScenarioProvider scenarioProvider, IScenarioCreator scenarioCreator, 
-                               IRequestProvider requestProvider, IRequestCreator requestCreator)
+        public ScenarioManager(IScenarioProvider scenarioProvider, IScenarioCreator scenarioCreator,
+                               IRequestProvider requestProvider, IRequestCreator requestCreator,
+                               IScenarioRemover scenarioRemover, IRequestRemover requestRemover)
         {
             _scenarioProvider = scenarioProvider;
             _scenarioCreator = scenarioCreator;
             _requestProvider = requestProvider;
             _requestCreator = requestCreator;
+            _scenarioRemover = scenarioRemover;
+            _requestRemover = requestRemover;
         }
 
         public async Task<IEnumerable<BaseScenario>> GetScenarios()
@@ -48,6 +54,11 @@ namespace WPF.Models
             await _scenarioCreator.CreateScenario(scenario);
             return scenario;
         }
+        public async Task<BaseScenario> DeleteScenario(BaseScenario scenario)
+        {
+            await _scenarioRemover.DeleteScenario(scenario);
+            return scenario;
+        }
 
         public async Task<RequestParametres> AddRequestParametres(RequestParametres requestParametres)
         {
@@ -66,23 +77,35 @@ namespace WPF.Models
             scenario.RequestParametres = requestParametres;
         }
 
-        public void RunScenarious(IEnumerable<BaseScenario> scenarious)
+        public async Task<RequestParametres> DeleteRequest(RequestParametres requestParametres)
         {
-            var scenarioProps = new List<ScenarioProps>();
+            await _requestRemover.DeleteRequest(requestParametres);
+            return requestParametres;
+        }
 
-            foreach (var scenario in scenarious)
+        public void RunScenarious(BaseScenario? scenario)
+        {
+            if (scenario is null)
             {
-                if (scenario.IsRequestParametresExist())
-                {
-                    scenarioProps.Add(scenario.Create());
-                }
-                else
-                {
-                    throw new ScenarioMissingRequestParametersException(scenario);
-                }
+                throw new NullReferenceException();
             }
 
-            NBomberRunner.RegisterScenarios(scenarioProps.ToArray()).Run();
+            if (scenario.IsRequestParametresExist())
+            {
+                Task.Run(() =>
+                {
+                    var scenarioProps = scenario.Create();
+
+                    NBomberRunner
+                        .RegisterScenarios(scenarioProps)
+                        .WithReportingSinks(new WpfSink())
+                        .Run();
+                });
+            }
+            else
+            {
+                throw new ScenarioMissingRequestParametersException(scenario);
+            }
         }
     }
 }

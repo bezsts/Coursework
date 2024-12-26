@@ -3,7 +3,6 @@ using WPF.Commands;
 using WPF.Common.Enums;
 using WPF.Models;
 using WPF.Services;
-using WPF.Stores;
 
 namespace WPF.ViewModels
 {
@@ -32,12 +31,12 @@ namespace WPF.ViewModels
 
         public Methods SelectedMethod
         {
-            get 
-            { 
-                return _selectedMethod; 
+            get
+            {
+                return _selectedMethod;
             }
-            set 
-            { 
+            set
+            {
                 _selectedMethod = value;
                 OnPropertyChanged(nameof(SelectedMethod));
             }
@@ -45,12 +44,12 @@ namespace WPF.ViewModels
 
         public string Url
         {
-            get 
-            { 
-                return _url; 
+            get
+            {
+                return _url;
             }
-            set 
-            { 
+            set
+            {
                 _url = value;
                 OnPropertyChanged(nameof(Url));
             }
@@ -58,25 +57,25 @@ namespace WPF.ViewModels
 
         public string ContentType
         {
-            get 
-            { 
-                return _contentType; 
+            get
+            {
+                return _contentType;
             }
-            set 
-            { 
-                _contentType = value; 
+            set
+            {
+                _contentType = value;
                 OnPropertyChanged(nameof(ContentType));
             }
         }
 
         public string Body
         {
-            get 
-            { 
+            get
+            {
                 return _body;
             }
-            set 
-            { 
+            set
+            {
                 _body = value;
                 OnPropertyChanged(nameof(Body));
             }
